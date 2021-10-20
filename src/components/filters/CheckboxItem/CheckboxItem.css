@@ -1,0 +1,22 @@
+.CheckboxItem {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 5px;
+}
+
+.CheckboxItem__label {
+    font-size: 16px;
+    line-height: 21px;
+    color: #3A3A3A;
+}
+
+.CheckboxItem__check {
+    border: 1px solid #CDCDCD;
+    border-radius: 4px;
+
+    width: 18px;
+    height: 18px;
+
+    margin: 0 10px 0 0;
+}

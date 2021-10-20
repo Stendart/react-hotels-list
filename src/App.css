@@ -1,5 +1,9 @@
+* {
+  box-sizing: border-box;
+}
+
 .App {
-  text-align: center;
+  /*text-align: center;*/
 }
 
 .App-logo {
@@ -15,7 +19,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  /*min-height: 100vh;*/
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,6 +30,22 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.Main {
+  display: flex;
+  justify-content: space-between;
+
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.Hotel-list {
+  width: 60%;
+}
+
+.Filters {
+  width: 35%;
 }
 
 @keyframes App-logo-spin {

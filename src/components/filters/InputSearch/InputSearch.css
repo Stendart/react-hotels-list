@@ -1,0 +1,25 @@
+.InputSearch {
+    position: relative;
+    border: 1px solid #EAEAEA;
+    box-sizing: border-box;
+    border-radius: 10px;
+
+    margin-bottom: 10px;
+}
+
+.InputSearch::before {
+    content: url("../../../assets/search.png");
+    position: absolute;
+    width: 20px;
+    height: 20px;
+
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+}
+
+.InputSearch__input {
+    padding: 14px 45px;
+    border: none;
+    width: 100%;
+}
