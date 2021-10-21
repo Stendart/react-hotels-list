@@ -1,4 +1,4 @@
-import {ADD_COUNTRY_LIST, CHANGE_SELECT_COUNTRY, SET_COUNTRY_SEARCH_STRING} from "../actions/actionTypes";
+import {ADD_COUNTRY_LIST, CHANGE_SELECT_COUNTRY} from "../actions/actionTypes";
 
 const initialState = {
     // countryList: ['Австрия', 'Азербайджан', 'Албания']

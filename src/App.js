@@ -2,15 +2,13 @@ import logo from './logo.svg';
 import './App.css';
 import React, {PureComponent} from "react";
 
-
-// import {useState, useEffect} from "react";
-import {useSelector, connect} from "react-redux";
-
+import {connect} from "react-redux";
 
 import CardList from "./components/displayField/CardList/CardList";
 import AppCountry from "./components/filters/AppCountry/AppCountry";
 import AppType from "./components/filters/AppType/AppType";
 import AppStars from "./components/filters/AppStars/AppStars";
+import ReviewsCount from "./components/filters/ReviewsCount/ReviewsCount";
 
 import hotel from "./assets/hotels.json"
 
@@ -37,18 +35,17 @@ class App extends PureComponent {
     }
 
     filterData = () => {
-        const {country, stars, types} = this.props;
+        const {country, stars, types, review} = this.props;
         const selectedCountryList = this.transformDataToNameArray(country.countryList, 'isChecked')
         const selectedTypeList = this.transformDataToNameArray(types.typeList, 'isChecked')
         const selectedStarList = this.transformDataToNameArray(stars.selectStar, 'isChecked')
-
+        console.log('review', review)
         const filteredByCountry =  this.filterDataByParam(this.state.hotelList, selectedCountryList, 'country');
         const filteredByType =  this.filterDataByParam(filteredByCountry, selectedTypeList, 'type');
         const filteredByStars =  this.filterDataByParam(filteredByType, selectedStarList, 'stars');
 
         return filteredByStars;
     }
-
 
     render() {
         return (
@@ -61,6 +58,7 @@ class App extends PureComponent {
                         <AppCountry />
                         <AppType />
                         <AppStars />
+                        <ReviewsCount />
                     </section>
                     <section className='Hotel-list'>
                         <CardList hotelsList={this.filterData()} />
@@ -77,7 +75,8 @@ const mapSTateToProps = (state) => {
     return {
         country: state.country,
         stars: state.stars,
-        types: state.types
+        types: state.types,
+        review: state.review
     }
 
 }

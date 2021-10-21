@@ -1,4 +1,4 @@
-.InputSearch {
+.AppInput.jsx {
     position: relative;
     border: 1px solid #EAEAEA;
     box-sizing: border-box;
@@ -7,7 +7,7 @@
     margin-bottom: 10px;
 }
 
-.InputSearch::before {
+.AppInput.jsx::before {
     content: url("../../../assets/search.png");
     position: absolute;
     width: 20px;
@@ -18,7 +18,7 @@
     transform: translateY(-50%);
 }
 
-.InputSearch__input {
+.AppInput.jsx__input {
     padding: 14px 45px;
     border: none;
     width: 100%;

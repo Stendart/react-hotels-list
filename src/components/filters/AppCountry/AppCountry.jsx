@@ -1,9 +1,9 @@
 import React, {PureComponent} from "react";
 import './AppCountry.css';
-import InputSearch from "../InputSearch/InputSearch";
+import AppInput from "../InputSearch/AppInput";
 import CheckboxList from "../CheckboxList/CheckboxList";
 import {connect} from "react-redux";
-import {addCountryToList, changeSelectCountry, setSearchString} from "../../../store/actions/country";
+import {addCountryToList, changeSelectCountry} from "../../../store/actions/country";
 
 class AppCountry extends PureComponent {
 
@@ -48,7 +48,7 @@ class AppCountry extends PureComponent {
             <div>
                 <h3>Страна</h3>
 
-                <InputSearch handleInput={this.handleInput} />
+                <AppInput handleInput={this.handleInput} placeholder='Поиск стран' />
                 <CheckboxList list={this.getCountryList()} handleInputChange={this.handleCheckboxChange} />
             </div>
 
