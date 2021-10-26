@@ -38,6 +38,8 @@
 
   max-width: 1200px;
   margin: 0 auto;
+
+  padding: 0 20px;
 }
 
 .Hotel-list {
@@ -46,6 +48,16 @@
 
 .Filters {
   width: 35%;
+}
+
+
+.Filters__button {
+  background: #6A53F5;
+  border-radius: 15px;
+
+  padding: 17px 96px;
+
+  color: #fff;
 }
 
 @keyframes App-logo-spin {

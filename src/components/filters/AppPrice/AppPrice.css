@@ -1,0 +1,18 @@
+.app-price__input-wrap {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.app-price__input {
+    width: 45%;
+
+    border: 1px solid #EAEAEA;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+.app-price__range {
+    margin: 20px 0;
+}
+

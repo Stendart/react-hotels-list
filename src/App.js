@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import React, {PureComponent} from "react";
 
@@ -9,6 +8,9 @@ import AppCountry from "./components/filters/AppCountry/AppCountry";
 import AppType from "./components/filters/AppType/AppType";
 import AppStars from "./components/filters/AppStars/AppStars";
 import ReviewsCount from "./components/filters/ReviewsCount/ReviewsCount";
+import AppPrice from "./components/filters/AppPrice/AppPrice";
+
+import {setHotelList} from "./store/actions/hotels";
 
 import hotel from "./assets/hotels.json"
 
@@ -19,6 +21,10 @@ class App extends PureComponent {
         this.state = {
             hotelList: hotel.hotels
         }
+    }
+
+    componentDidMount() {
+        this.props.setHotelList(this.state.hotelList)
     }
 
     transformDataToNameArray = (dataArray, isFieldValue) => {
@@ -34,17 +40,32 @@ class App extends PureComponent {
         return hotelList.filter((hotel) => checkedItemList.includes(hotel[param]))
     }
 
+    filterDataByCount = (hotelList, param, minCount, maxCount) => {
+        if(!maxCount)
+            return hotelList.filter((hotel) => hotel[param] >= minCount );
+        if(typeof maxCount === 'number') {
+            return hotelList.filter((hotel) => hotel[param] >= minCount && hotel[param] <= maxCount);
+        }
+    }
+
     filterData = () => {
-        const {country, stars, types, review} = this.props;
+        const {country, stars, types, review, price, hotels} = this.props;
+
         const selectedCountryList = this.transformDataToNameArray(country.countryList, 'isChecked')
         const selectedTypeList = this.transformDataToNameArray(types.typeList, 'isChecked')
         const selectedStarList = this.transformDataToNameArray(stars.selectStar, 'isChecked')
-        console.log('review', review)
-        const filteredByCountry =  this.filterDataByParam(this.state.hotelList, selectedCountryList, 'country');
+
+        const filteredByCountry =  this.filterDataByParam(hotels.hotelList, selectedCountryList, 'country');
         const filteredByType =  this.filterDataByParam(filteredByCountry, selectedTypeList, 'type');
         const filteredByStars =  this.filterDataByParam(filteredByType, selectedStarList, 'stars');
+        const filterByReviewsCount = this.filterDataByCount(filteredByStars, 'reviews_amount', review.reviewsCount);
+        const filterByPriceRange = this.filterDataByCount(filterByReviewsCount, 'min_price', price.minPrice, price.maxPrice)
 
-        return filteredByStars;
+        this.setState({hotelList: filterByPriceRange})
+    }
+
+    applyFilters = () => {
+        this.filterData();
     }
 
     render() {
@@ -59,26 +80,34 @@ class App extends PureComponent {
                         <AppType />
                         <AppStars />
                         <ReviewsCount />
+                        <AppPrice min={5} max={100500} defaultValue={[10, 90000]} />
+                        <button className='Filters__button' onClick={this.applyFilters}>
+                            Применить фильтр
+                        </button>
                     </section>
                     <section className='Hotel-list'>
-                        <CardList hotelsList={this.filterData()} />
+                        <CardList hotelsList={this.state.hotelList} />
                     </section>
                 </main>
             </div>
         );
     }
-
-
 }
 
-const mapSTateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         country: state.country,
         stars: state.stars,
         types: state.types,
-        review: state.review
+        review: state.review,
+        price: state.price,
+        hotels: state.hotels
+    }
+};
+    const mapDispatchToProp = (dispatch) => {
+        return {
+            setHotelList: (hotelList) => dispatch(setHotelList(hotelList))
+        }
     }
 
-}
-
-export default connect(mapSTateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProp)(App);

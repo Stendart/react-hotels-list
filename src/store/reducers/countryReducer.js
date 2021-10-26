@@ -1,7 +1,6 @@
 import {ADD_COUNTRY_LIST, CHANGE_SELECT_COUNTRY} from "../actions/actionTypes";
 
 const initialState = {
-    // countryList: ['Австрия', 'Азербайджан', 'Албания']
     countryList: [
         {
             name: 'Австрия',
@@ -13,7 +12,7 @@ const initialState = {
         },
         {
             name: 'Албания',
-            isChecked: true
+            isChecked: false
         },
         {
             name: 'Греция',

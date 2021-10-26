@@ -11,9 +11,9 @@ class AppCountry extends PureComponent {
         searchString: ''
     }
 
-    componentDidMount() {
-        this.props.addCountry({name: 'someCountry', isChecked: false})
-    }
+    // componentDidMount() {
+    //     this.props.addCountry({name: 'someCountry', isChecked: false})
+    // }
 
     handleCheckboxChange = (element, index ) => {
         this.props.toggleSelectCountry(element.target.checked, index)
@@ -39,7 +39,6 @@ class AppCountry extends PureComponent {
     }
 
     handleInput = (input) => {
-        // console.log('input', input.target.value)
         this.setState({searchString: input.target.value})
     }
 

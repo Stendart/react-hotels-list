@@ -8,14 +8,14 @@ import {changeReviewsCount} from "../../../store/actions/reviews";
 class ReviewsCount extends PureComponent {
 
     inputHandler = ({target}) => {
-        console.log(target.value)
+        this.props.changeReviewsCount(+target.value)
     }
 
     render() {
         return (
             <div>
                 <h3 className='reviews-count'>Количество отзывов (от)</h3>
-                <AppInput handleInput={this.inputHandler} placeholder='Например, от 10' />
+                <AppInput handleInput={this.inputHandler} type="number" placeholder='Например, от 10' />
             </div>
         );
     }

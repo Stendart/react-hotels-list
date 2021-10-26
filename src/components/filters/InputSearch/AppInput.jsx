@@ -1,10 +1,11 @@
 import React from 'react';
-import './InputSearch.css'
+import './AppInput.css'
 
 function AppInput(props) {
     return (
-        <div className='AppInput.jsx'>
-            <input className='AppInput.jsx__input' type='text'
+        <div className='AppInput'>
+            <input className='AppInput__input' type='text'
+                   type={props.type || "text"}
                    onInput={props.handleInput}
                    placeholder={props.placeholder}
             />

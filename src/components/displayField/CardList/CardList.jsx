@@ -4,9 +4,7 @@ import HotelCard from "../HotelCard/HotelCard";
 import './CardList.css'
 
 class CardList extends PureComponent {
-    state={
-        text: 'Этот 4-звездочный отель расположен в центре города. На его территории есть бассейн с терассой и сауна. Из номеров открывается вид на море.'
-    }
+
     changeHandler(e) {
         console.log('change star', e)
     }
