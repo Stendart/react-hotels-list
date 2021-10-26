@@ -31,15 +31,14 @@ export default function countryReducer (state = initialState, action) {
         case CHANGE_SELECT_COUNTRY:
             const {isSelectCountry, countryIndex } = action;
             const newCountryList = [...state.countryList];
-            const changeItem = newCountryList[countryIndex];
-            changeItem.isChecked = isSelectCountry;
+            const prevItem = newCountryList[countryIndex];
+            newCountryList[countryIndex] = {...prevItem, isChecked: isSelectCountry};
 
             return {
                 ...state, countryList: newCountryList
             }
         case RESET_SELECT_COUNTRY:
-            console.log('Доходит')
-            return {...state, ...initialState}
+            return {...initialState}
         default:
             return state
     }

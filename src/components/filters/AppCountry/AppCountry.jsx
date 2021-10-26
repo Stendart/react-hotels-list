@@ -11,16 +11,12 @@ class AppCountry extends PureComponent {
         searchString: ''
     }
 
-    // componentDidMount() {
-    //     this.props.addCountry({name: 'someCountry', isChecked: false})
-    // }
-
     handleCheckboxChange = (element, index ) => {
         this.props.toggleSelectCountry(element.target.checked, index)
     }
 
     prepareCountryList = () => {
-        const countryList = this.props.countryList.map(country => { // ToDo Уточнить, нормально ли так делать, что бы переименовать поле в объекте
+        const countryList = this.props.countryList.map(country => {
             const {name: label, ...other} = country
             return {
                 label,
@@ -55,7 +51,6 @@ class AppCountry extends PureComponent {
     }
 
 }
-
 
 function mapStateToProps(state) {
     return {
