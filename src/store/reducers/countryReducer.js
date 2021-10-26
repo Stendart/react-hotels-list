@@ -1,4 +1,4 @@
-import {ADD_COUNTRY_LIST, CHANGE_SELECT_COUNTRY} from "../actions/actionTypes";
+import {ADD_COUNTRY_LIST, CHANGE_SELECT_COUNTRY, RESET_SELECT_COUNTRY} from "../actions/actionTypes";
 
 const initialState = {
     countryList: [
@@ -30,12 +30,16 @@ export default function countryReducer (state = initialState, action) {
             }
         case CHANGE_SELECT_COUNTRY:
             const {isSelectCountry, countryIndex } = action;
-            const newCountryList = state.countryList;
+            const newCountryList = [...state.countryList];
             const changeItem = newCountryList[countryIndex];
             changeItem.isChecked = isSelectCountry;
+
             return {
-                ...state, countryList: [...newCountryList]
+                ...state, countryList: newCountryList
             }
+        case RESET_SELECT_COUNTRY:
+            console.log('Доходит')
+            return {...state, ...initialState}
         default:
             return state
     }

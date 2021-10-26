@@ -13,6 +13,7 @@ import AppPrice from "./components/filters/AppPrice/AppPrice";
 import {setHotelList} from "./store/actions/hotels";
 
 import hotel from "./assets/hotels.json"
+import {resetSelectCountry} from "./store/actions/country";
 
 class App extends PureComponent {
     constructor(props) {
@@ -68,6 +69,11 @@ class App extends PureComponent {
         this.filterData();
     }
 
+    resetFilters = () => {
+        console.log('====')
+        this.props.resetSelectCountry();
+    }
+
     render() {
         return (
             <div className="App">
@@ -81,8 +87,11 @@ class App extends PureComponent {
                         <AppStars />
                         <ReviewsCount />
                         <AppPrice min={5} max={100500} defaultValue={[10, 90000]} />
-                        <button className='Filters__button' onClick={this.applyFilters}>
+                        <button className='Filters__button Filters__button--apply' onClick={this.applyFilters}>
                             Применить фильтр
+                        </button>
+                        <button className='Filters__button Filters__button--refresh' onClick={this.resetFilters}>
+                            Сбросить фильтр
                         </button>
                     </section>
                     <section className='Hotel-list'>
@@ -106,7 +115,8 @@ const mapStateToProps = (state) => {
 };
     const mapDispatchToProp = (dispatch) => {
         return {
-            setHotelList: (hotelList) => dispatch(setHotelList(hotelList))
+            setHotelList: (hotelList) => dispatch(setHotelList(hotelList)),
+            resetSelectCountry: () => dispatch(resetSelectCountry())
         }
     }
 
