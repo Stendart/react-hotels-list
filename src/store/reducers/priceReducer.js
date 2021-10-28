@@ -1,4 +1,4 @@
-import {CHANGE_MAX_PRICE, CHANGE_MIN_PRICE} from "../actions/actionTypes";
+import {CHANGE_MAX_PRICE, CHANGE_MIN_PRICE, RESET_PRICE_FILTER} from "../actions/actionTypes";
 
 const initialState = {
     minPrice: 100,
@@ -14,6 +14,10 @@ export default function priceReducer(state = initialState, action) {
         case CHANGE_MAX_PRICE:
             return {
                 ...state, maxPrice: action.maxPrice
+            }
+        case RESET_PRICE_FILTER:
+            return {
+                ...initialState
             }
         default:
             return state

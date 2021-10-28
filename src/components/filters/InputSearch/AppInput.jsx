@@ -8,6 +8,7 @@ function AppInput(props) {
                    type={props.type || "text"}
                    onInput={props.handleInput}
                    placeholder={props.placeholder}
+                   value={props.value || ''}
             />
         </div>
     );

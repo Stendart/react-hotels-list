@@ -1,4 +1,4 @@
-import {CHANGE_TYPE_SELECT} from "./actionTypes";
+import {CHANGE_TYPE_SELECT, RESET_TYPE_SELECT} from "./actionTypes";
 
 export function changeSelectType(isChecked, index) {
     return {
@@ -8,3 +8,6 @@ export function changeSelectType(isChecked, index) {
     }
 }
 
+export const resetSelectType = () => ({
+    type: RESET_TYPE_SELECT
+})

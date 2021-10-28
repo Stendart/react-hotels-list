@@ -1,0 +1,18 @@
+.AppPagination {
+    display: flex;
+    justify-content: space-around;
+}
+
+.AppPagination__page-display {
+    text-align: center;
+    width: 30%;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.AppPagination__btn {
+    background: #6A53F5;
+    padding: 17px 25px;
+    border-radius: 15px;
+    color: #fff;
+}

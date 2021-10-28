@@ -1,4 +1,4 @@
-import {CHANGE_MAX_PRICE, CHANGE_MIN_PRICE} from "./actionTypes";
+import {CHANGE_MAX_PRICE, CHANGE_MIN_PRICE, RESET_PRICE_FILTER} from "./actionTypes";
 
 export function resetPriceFilter(minPrice) {
     return {
@@ -20,3 +20,7 @@ export function changeMaxPrice(maxPrice) {
         maxPrice
     }
 }
+
+export const resetPrice = () => ({
+    type: RESET_PRICE_FILTER
+})

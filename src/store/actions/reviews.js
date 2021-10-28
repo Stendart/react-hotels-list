@@ -1,4 +1,4 @@
-import {CHANGE_REVIEWS_COUNT} from "./actionTypes";
+import {CHANGE_REVIEWS_COUNT, RESET_REVIEWS_COUNT} from "./actionTypes";
 
 export function changeReviewsCount(reviewsCount) {
     return {
@@ -6,3 +6,7 @@ export function changeReviewsCount(reviewsCount) {
         reviewsCount
     }
 }
+
+export const resetReviewsCount = () => ({
+    type: RESET_REVIEWS_COUNT
+})

@@ -9,23 +9,33 @@ import AppType from "./components/filters/AppType/AppType";
 import AppStars from "./components/filters/AppStars/AppStars";
 import ReviewsCount from "./components/filters/ReviewsCount/ReviewsCount";
 import AppPrice from "./components/filters/AppPrice/AppPrice";
+import AppPagination from "./components/displayField/AppPagination/AppPagination";
 
 import {setHotelList} from "./store/actions/hotels";
 
 import hotel from "./assets/hotels.json"
 import {resetSelectCountry} from "./store/actions/country";
+import {resetStarsSelect} from "./store/actions/stars";
+import {resetSelectType} from "./store/actions/types";
+import {resetReviewsCount} from "./store/actions/reviews";
+import {resetPrice} from "./store/actions/price";
 
 class App extends PureComponent {
     constructor(props) {
         super(props);
 
         this.state = {
-            hotelList: hotel.hotels
+            hotelList: hotel.hotels,
+            pageSize: 3,
+            currentPage: 1
         }
     }
 
     componentDidMount() {
         this.props.setHotelList(this.state.hotelList)
+        setTimeout(() => {
+            this.filterData();
+        }, 0)
     }
 
     transformDataToNameArray = (dataArray, isFieldValue) => {
@@ -41,12 +51,12 @@ class App extends PureComponent {
         return hotelList.filter((hotel) => checkedItemList.includes(hotel[param]))
     }
 
-    filterDataByCount = (hotelList, param, minCount, maxCount) => {
-        if(!maxCount)
-            return hotelList.filter((hotel) => hotel[param] >= minCount );
-        if(typeof maxCount === 'number') {
-            return hotelList.filter((hotel) => hotel[param] >= minCount && hotel[param] <= maxCount);
-        }
+    filterDataByCount = (hotelList, param, minCount) => {
+        return hotelList.filter((hotel) => hotel[param] >= minCount );
+    }
+
+    filterDataByRange = (hotelList, param, minCount, maxCount) => {
+        return hotelList.filter((hotel) => hotel[param] >= minCount && hotel[param] <= maxCount);
     }
 
     filterData = () => {
@@ -60,7 +70,7 @@ class App extends PureComponent {
         const filteredByType =  this.filterDataByParam(filteredByCountry, selectedTypeList, 'type');
         const filteredByStars =  this.filterDataByParam(filteredByType, selectedStarList, 'stars');
         const filterByReviewsCount = this.filterDataByCount(filteredByStars, 'reviews_amount', review.reviewsCount);
-        const filterByPriceRange = this.filterDataByCount(filterByReviewsCount, 'min_price', price.minPrice, price.maxPrice)
+        const filterByPriceRange = this.filterDataByRange(filterByReviewsCount, 'min_price', price.minPrice, price.maxPrice);
 
         this.setState({hotelList: filterByPriceRange})
     }
@@ -70,8 +80,33 @@ class App extends PureComponent {
     }
 
     resetFilters = () => {
-        console.log('====')
         this.props.resetSelectCountry();
+        this.props.resetStarSelect();
+        this.props.resetSelectType();
+        this.props.resetReviewsCount();
+        this.props.resetPrice();
+
+        this.applyFilters();
+    }
+
+    pagination = () => {
+        const start = this.state.pageSize * (this.state.currentPage - 1);
+        const end = Math.min(this.state.pageSize * this.state.currentPage, this.state.hotelList.length);
+        return this.state.hotelList.slice(start, end);
+    }
+
+    countPage = () =>  Math.ceil(this.state.hotelList.length / this.state.pageSize)
+
+    handlePaginationPrevClick = () => {
+        if (this.state.currentPage > 1) {
+            this.setState({currentPage: this.state.currentPage - 1})
+        }
+    }
+
+    handlePaginationNextClick = () => {
+        if (this.state.currentPage < this.countPage()){
+            this.setState({currentPage: this.state.currentPage + 1})
+        }
     }
 
     render() {
@@ -95,7 +130,14 @@ class App extends PureComponent {
                         </button>
                     </section>
                     <section className='Hotel-list'>
-                        <CardList hotelsList={this.state.hotelList} />
+                        <CardList className='Hotel-list__card-list' hotelsList={this.pagination()} />
+                        <AppPagination
+                            className='App__pagination'
+                            value={this.state.currentPage}
+                            countPage={this.countPage()}
+                            prevClick={this.handlePaginationPrevClick}
+                            nextClick={this.handlePaginationNextClick}
+                        />
                     </section>
                 </main>
             </div>
@@ -103,21 +145,22 @@ class App extends PureComponent {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
+const mapStateToProps = (state) => ({
         country: state.country,
         stars: state.stars,
         types: state.types,
         review: state.review,
         price: state.price,
         hotels: state.hotels
-    }
-};
-    const mapDispatchToProp = (dispatch) => {
-        return {
-            setHotelList: (hotelList) => dispatch(setHotelList(hotelList)),
-            resetSelectCountry: () => dispatch(resetSelectCountry())
-        }
-    }
+    })
+
+const mapDispatchToProp = (dispatch) => ({
+        setHotelList: (hotelList) => dispatch(setHotelList(hotelList)),
+        resetSelectCountry: () => dispatch(resetSelectCountry()),
+        resetStarSelect: () => dispatch(resetStarsSelect()),
+        resetSelectType: () => dispatch(resetSelectType()),
+        resetReviewsCount: () => dispatch(resetReviewsCount()),
+        resetPrice: () => dispatch(resetPrice())
+})
 
 export default connect(mapStateToProps, mapDispatchToProp)(App);

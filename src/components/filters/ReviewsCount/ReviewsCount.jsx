@@ -15,9 +15,15 @@ class ReviewsCount extends PureComponent {
         return (
             <div>
                 <h3 className='reviews-count'>Количество отзывов (от)</h3>
-                <AppInput handleInput={this.inputHandler} type="number" placeholder='Например, от 10' />
+                <AppInput handleInput={this.inputHandler} type="number" value={this.props.reviewsCount.reviewsCount} placeholder='Например, от 10' />
             </div>
         );
+    }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        reviewsCount: state.review
     }
 }
 
@@ -29,4 +35,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(ReviewsCount);
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewsCount);

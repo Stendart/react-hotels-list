@@ -10,7 +10,7 @@ class CardList extends PureComponent {
     }
     render() {
         return (
-            <div>
+            <div className={this.props.className}>
                 {
                     this.props.hotelsList.map((hotel) => {
                         return <HotelCard title={hotel.name}
